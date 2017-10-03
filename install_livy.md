@@ -40,6 +40,27 @@ export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native/:$LD_LIBRARY_PATH
 export SPARK_HOME=/usr/local/spark
 export HADOOP_CONF_DIR=/usr/local/hadoop/conf
 
+// hadoop
+https://malderhout.wordpress.com/2014/08/22/install-single-node-hadoop-on-centos-7-in-5-simple-steps/
+# disable ipv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+PATH="$PATH:/usr/local/hadoop/sbin"
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+(+ to etc/environment)
+sudo cp /usr/local/hadoop-2.7.4/etc/hadoop/*.xml ~/conf
+sudo cp ~/conf/* /usr/local/hadoop-2.7.4/conf/
+add logs directory
+iptables -A INPUT -p tcp --dport 50070 -j ACCEPT
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 //end
 Livy 0.4
 just run as bash livy-server
